@@ -11,52 +11,52 @@ use Sulu\Bundle\ContactBundle\Entity\Account as SuluAccount;
 class Account extends SuluAccount
 {
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $regCourt;
+    private ?string $regCourt = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $regNumber;
+    private ?string $regNumber = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $descriptor;
+    private ?string $descriptor = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $claim;
+    private ?string $claim = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $monAm;
+    private ?string $monAm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $monPm;
+    private ?string $monPm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $tueAm;
+    private ?string $tueAm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $tuePm;
+    private ?string $tuePm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $wedAm;
+    private ?string $wedAm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $wedPm;
+    private ?string $wedPm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $thurAm;
+    private ?string $thurAm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $thurPm;
+    private ?string $thurPm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $friAm;
+    private ?string $friAm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $friPm;
+    private ?string $friPm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $satAm;
+    private ?string $satAm = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $satPm;
+    private ?string $satPm = null;
 
 
     public function setRegCourt(?string $regCourt): void
