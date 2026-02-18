@@ -1,0 +1,17 @@
+services:
+    Manuxi\SuluExtendedAccountBundle\Controller\Admin\ExtendedAccountController:
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@fos_rest.view_handler.default'
+            - '@security.token_storage'
+        tags:
+            - { name: sulu.context, context: admin }
+
+    Manuxi\SuluExtendedAccountBundle\Admin\ExtendedAccountAdmin:
+        arguments:
+            - '@sulu_admin.view_builder_factory'
+            - '@sulu_security.security_checker'
+        tags:
+            - { name: sulu.admin }
+            - { name: sulu.context, context: admin }

@@ -19,7 +19,7 @@ class SuluExtendedAccountExtension extends Extension implements PrependExtension
                 [
                     "forms" => [
                         "directories" => [
-                            __DIR__ . "/../../config/forms"
+                            __DIR__ . "/../Resources/config/forms"
                         ]
                     ],
                     "resources" => [
@@ -47,7 +47,7 @@ class SuluExtendedAccountExtension extends Extension implements PrependExtension
 
         $container->loadFromExtension('framework', [
             'default_locale' => 'en',
-            'translator' => ['paths' => [__DIR__ . '/../../translations/']],
+            'translator' => ['paths' => [__DIR__ . '/../Resources/translations/']],
         ]);
 
     }
@@ -56,8 +56,8 @@ class SuluExtendedAccountExtension extends Extension implements PrependExtension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . "/../../config"));
-        $loader->load("services.xml");
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . "/../Resources/config"));
+        $loader->load("services.yaml");
     }
 
 }
