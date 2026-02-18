@@ -8,14 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Moved `config/forms/` to `src/Resources/config/forms/` (Symfony bundle convention)
-- Moved `translations/` to `src/Resources/translations/` (Symfony bundle convention)
-- Converted `config/services.xml` to `src/Resources/config/services.yaml` (XML config deprecated in Symfony 7.4)
-- Updated `SuluExtendedAccountExtension` to use `YamlFileLoader` and new resource paths
+- Replaced 12 individual opening hours string fields (`monAm`, `monPm`, ...) with 3 JSON fields (`businessHours`, `publicHolidays`, `holidayDates`)
+- Opening hours now use `business_hours`, `public_holidays` and `holiday_dates` content types from SuluAdminExtrasBundle
+- Split admin form into two tabs: "Company Data" and "Opening Hours"
+- Controller now uses `array_key_exists` checks for partial updates (both tabs share one API endpoint)
+
+### Added
+- Twig extension with 4 functions: `is_open_now()`, `get_business_hours()`, `get_today_hours()`, `is_holiday()`
+- Hard dependency on `manuxi/sulu-admin-extras-bundle` (^3.0)
+- New form `extended_account_openings.xml` for the opening hours tab
+- Unit tests for Twig extension
 
 ### Removed
-- Removed root-level `config/` directory (consolidated into `src/Resources/config/`)
-- Removed root-level `translations/` directory (consolidated into `src/Resources/translations/`)
+- 12 individual string columns for opening hours (`monAm`, `monPm`, `tueAm`, `tuePm`, `wedAm`, `wedPm`, `thurAm`, `thurPm`, `friAm`, `friPm`, `satAm`, `satPm`)
+- All `openings.*` translation keys (replaced by AdminExtrasBundle translations)
 
 ## [3.0.0] - 2026-02-18
 
@@ -26,26 +32,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed admin class from `AdditionalAccountDataAdmin` to `ExtendedAccountAdmin`
 - Renamed controller class from `AdditionalAccountDataController` to `ExtendedAccountController`
 - Renamed DI extension class from `SuluAdditionalAccountDataExtension` to `SuluExtendedAccountExtension`
-- Renamed DI configuration key from `additional-account-data` to `extended-account`
 - Changed API route path from `/admin/api/additional-account-data` to `/admin/api/extended-account`
-- Changed route names from `sulu_additional_account_data.*` to `sulu_extended_account.*`
-- Changed resource key from `additional_account_data` to `extended_account`
-- Changed form key from `additional_account_data` to `extended_account`
-- Changed all translation keys from `additional_account_data.*` to `extended_account.*`
-- Renamed form configuration file from `additional_account_data.xml` to `extended_account.xml`
+- Changed route names, resource key, form key and translation keys accordingly
 
 ### Added
-- Unit tests for all classes (Entity, Admin, Controller, DI Extension, Configuration, Bundle)
-- PHPUnit 11 configuration (`phpunit.xml.dist`)
+- Unit tests for all classes
+- PHPUnit 11 configuration
 - Documentation in `docs/` (English and German)
-- German README (`README.de.md`)
-- This changelog file
+- German README
 
 ### Fixed
-- Initialized all nullable entity properties with `= null` default to prevent `TypeError` on access before initialization
-
-### Removed
-- Removed `phpspec/prophecy` dependency (incompatible with PHPUnit 11)
+- Initialized all nullable entity properties with `= null` default
 
 ### Upgraded
 - Upgraded `phpunit/phpunit` from `^8.0` to `^11.0`

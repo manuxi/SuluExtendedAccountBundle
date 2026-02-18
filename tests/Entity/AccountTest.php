@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Manuxi\SuluExtendedAccountBundle\Tests\Entity;
 
 use Manuxi\SuluExtendedAccountBundle\Entity\Account;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\ContactBundle\Entity\Account as SuluAccount;
 
 class AccountTest extends TestCase
 {
@@ -17,82 +17,93 @@ class AccountTest extends TestCase
         $this->account = new Account();
     }
 
-    public function testRegCourtGetterSetter(): void
+    public function testExtendsSuluAccount(): void
     {
-        $this->assertNull($this->account->getRegCourt());
-
-        $this->account->setRegCourt('Amtsgericht München');
-        $this->assertSame('Amtsgericht München', $this->account->getRegCourt());
-
-        $this->account->setRegCourt(null);
-        $this->assertNull($this->account->getRegCourt());
+        $this->assertInstanceOf(SuluAccount::class, $this->account);
     }
 
-    public function testRegNumberGetterSetter(): void
+    public function testInheritedRegisterNumber(): void
     {
-        $this->assertNull($this->account->getRegNumber());
-
-        $this->account->setRegNumber('HRB 12345');
-        $this->assertSame('HRB 12345', $this->account->getRegNumber());
-
-        $this->account->setRegNumber(null);
-        $this->assertNull($this->account->getRegNumber());
+        $this->account->setRegisterNumber('HRB 12345');
+        $this->assertSame('HRB 12345', $this->account->getRegisterNumber());
     }
 
-    public function testDescriptorGetterSetter(): void
+    public function testInheritedPlaceOfJurisdiction(): void
+    {
+        $this->account->setPlaceOfJurisdiction('Amtsgericht Aachen');
+        $this->assertSame('Amtsgericht Aachen', $this->account->getPlaceOfJurisdiction());
+    }
+
+    public function testDescriptor(): void
     {
         $this->assertNull($this->account->getDescriptor());
-
-        $this->account->setDescriptor('Software Company');
-        $this->assertSame('Software Company', $this->account->getDescriptor());
-
-        $this->account->setDescriptor(null);
-        $this->assertNull($this->account->getDescriptor());
+        $this->account->setDescriptor('Web Agency');
+        $this->assertSame('Web Agency', $this->account->getDescriptor());
     }
 
-    public function testClaimGetterSetter(): void
+    public function testClaim(): void
     {
         $this->assertNull($this->account->getClaim());
-
-        $this->account->setClaim('We build great things');
-        $this->assertSame('We build great things', $this->account->getClaim());
-
-        $this->account->setClaim(null);
-        $this->assertNull($this->account->getClaim());
+        $this->account->setClaim('We build the web');
+        $this->assertSame('We build the web', $this->account->getClaim());
     }
 
-    #[DataProvider('openingHoursProvider')]
-    public function testOpeningHoursGetterSetter(string $getter, string $setter): void
+    public function testBusinessHours(): void
     {
-        $this->assertNull($this->account->$getter());
+        $this->assertNull($this->account->getBusinessHours());
 
-        $this->account->$setter('09:00 - 12:00');
-        $this->assertSame('09:00 - 12:00', $this->account->$getter());
-
-        $this->account->$setter(null);
-        $this->assertNull($this->account->$getter());
-    }
-
-    public static function openingHoursProvider(): array
-    {
-        return [
-            'Monday AM' => ['getMonAm', 'setMonAm'],
-            'Monday PM' => ['getMonPm', 'setMonPm'],
-            'Tuesday AM' => ['getTueAm', 'setTueAm'],
-            'Tuesday PM' => ['getTuePm', 'setTuePm'],
-            'Wednesday AM' => ['getWedAm', 'setWedAm'],
-            'Wednesday PM' => ['getWedPm', 'setWedPm'],
-            'Thursday AM' => ['getThurAm', 'setThurAm'],
-            'Thursday PM' => ['getThurPm', 'setThurPm'],
-            'Friday AM' => ['getFriAm', 'setFriAm'],
-            'Friday PM' => ['getFriPm', 'setFriPm'],
-            'Saturday AM' => ['getSatAm', 'setSatAm'],
-            'Saturday PM' => ['getSatPm', 'setSatPm'],
+        $hours = [
+            'monday' => [
+                'enabled' => true,
+                'break' => true,
+                'slots' => [
+                    ['start' => '08:00', 'end' => '12:00'],
+                    ['start' => '13:00', 'end' => '17:00'],
+                ],
+            ],
         ];
+
+        $this->account->setBusinessHours($hours);
+        $this->assertSame($hours, $this->account->getBusinessHours());
     }
 
-    public function testExtendsFromSuluAccount(): void
+    public function testPublicHolidays(): void
     {
-        $this->assertInstanceOf(\Sulu\Bundle\ContactBundle\Entity\Account::class, $this->account);
+        $this->assertNull($this->account->getPublicHolidays());
+
+        $holidays = [
+            'country' => 'DE',
+            'subdivision' => null,
+            'year' => 2026,
+            'holidays' => [
+                ['date' => '2026-01-01', 'name' => 'Neujahr', 'enabled' => true],
+            ],
+        ];
+
+        $this->account->setPublicHolidays($holidays);
+        $this->assertSame($holidays, $this->account->getPublicHolidays());
+    }
+
+    public function testHolidayDates(): void
+    {
+        $this->assertNull($this->account->getHolidayDates());
+
+        $dates = [
+            ['start' => '2026-12-24', 'end' => '2027-01-02', 'label' => 'Weihnachtsferien', 'recurring' => true],
+        ];
+
+        $this->account->setHolidayDates($dates);
+        $this->assertSame($dates, $this->account->getHolidayDates());
+    }
+
+    public function testNullableFields(): void
+    {
+        $this->account->setBusinessHours(null);
+        $this->account->setPublicHolidays(null);
+        $this->account->setHolidayDates(null);
+
+        $this->assertNull($this->account->getBusinessHours());
+        $this->assertNull($this->account->getPublicHolidays());
+        $this->assertNull($this->account->getHolidayDates());
     }
 }

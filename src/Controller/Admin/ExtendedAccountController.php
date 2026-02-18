@@ -36,94 +36,84 @@ class ExtendedAccountController extends AbstractRestController implements Secure
     #[Route(path: '/{id}', methods: ['GET'], name: 'sulu_extended_account.get')]
     public function getAction(int $id): Response
     {
-        /** @var AccountInterface|null $account */
-        $account = $this->entityManager->getRepository(AccountInterface::class)->find($id);
-        if (!$account) {
-            throw new NotFoundHttpException();
-        }
+        $account = $this->findAccountOrFail($id);
 
-        if (!$account instanceof Account) {
-            throw new \RuntimeException(sprintf('Account entity is not an instance of %s', Account::class));
-        }
-
-        //return $this->handleView($this->view($this->getDataForEntity($account)));
         return new JsonResponse($this->getDataForEntity($account));
     }
 
     #[Route(path: '/{id}', methods: ['PUT'], name: 'sulu_extended_account.put')]
     public function putAction(Request $request, int $id): Response
     {
-        $account = $this->entityManager->getRepository(AccountInterface::class)->find($id);
-        if (!$account) {
-            throw new NotFoundHttpException();
-        }
+        $account = $this->findAccountOrFail($id);
 
         $this->mapDataToEntity($request->request->all(), $account);
         $this->entityManager->flush();
 
-        //return $this->handleView($this->view($this->getDataForEntity($account)));
         return new JsonResponse($this->getDataForEntity($account));
     }
 
+    private function findAccountOrFail(int $id): Account
+    {
+        $account = $this->entityManager->getRepository(AccountInterface::class)->find($id);
+
+        if (!$account) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!$account instanceof Account) {
+            throw new \RuntimeException(\sprintf('Account entity is not an instance of %s', Account::class));
+        }
+
+        return $account;
+    }
+
     /**
-     * @param Account $entity
      * @return array<string, mixed>
      */
-    protected function getDataForEntity(Account $entity): array
+    private function getDataForEntity(Account $entity): array
     {
         return [
             'id' => $entity->getId(),
             'registerNumber' => $entity->getRegisterNumber(),
             'placeOfJurisdiction' => $entity->getPlaceOfJurisdiction(),
-
             'descriptor' => $entity->getDescriptor(),
             'claim' => $entity->getClaim(),
-
-            'monAm' => $entity->getMonAm(),
-            'monPm' => $entity->getMonPm(),
-            'tueAm' => $entity->getTueAm(),
-            'tuePm' => $entity->getTuePm(),
-            'wedAm' => $entity->getWedAm(),
-            'wedPm' => $entity->getWedPm(),
-            'thurAm' => $entity->getThurAm(),
-            'thurPm' => $entity->getThurPm(),
-            'friAm' => $entity->getFriAm(),
-            'friPm' => $entity->getFriPm(),
-            'satAm' => $entity->getSatAm(),
-            'satPm' => $entity->getSatPm(),
+            'businessHours' => $entity->getBusinessHours(),
+            'publicHolidays' => $entity->getPublicHolidays(),
+            'holidayDates' => $entity->getHolidayDates(),
         ];
     }
 
     /**
-     * @param array $data
-     * @param Account $entity
-     * @return void
+     * @param array<string, mixed> $data
      */
-    protected function mapDataToEntity(array $data, Account $entity): void
+    private function mapDataToEntity(array $data, Account $entity): void
     {
-        $entity->setRegisterNumber($data['registerNumber']);
-        $entity->setPlaceOfJurisdiction($data['placeOfJurisdiction']);
-
-        $entity->setDescriptor($data['descriptor']);
-        $entity->setClaim($data['claim']);
-
-        $entity->setMonAm($data['monAm']);
-        $entity->setMonPm($data['monPm']);
-        $entity->setTueAm($data['tueAm']);
-        $entity->setTuePm($data['tuePm']);
-        $entity->setWedAm($data['wedAm']);
-        $entity->setWedPm($data['wedPm']);
-        $entity->setThurAm($data['thurAm']);
-        $entity->setThurPm($data['thurPm']);
-        $entity->setFriAm($data['friAm']);
-        $entity->setFriPm($data['friPm']);
-        $entity->setSatAm($data['satAm']);
-        $entity->setSatPm($data['satPm']);
+        if (\array_key_exists('registerNumber', $data)) {
+            $entity->setRegisterNumber($data['registerNumber']);
+        }
+        if (\array_key_exists('placeOfJurisdiction', $data)) {
+            $entity->setPlaceOfJurisdiction($data['placeOfJurisdiction']);
+        }
+        if (\array_key_exists('descriptor', $data)) {
+            $entity->setDescriptor($data['descriptor']);
+        }
+        if (\array_key_exists('claim', $data)) {
+            $entity->setClaim($data['claim']);
+        }
+        if (\array_key_exists('businessHours', $data)) {
+            $entity->setBusinessHours($data['businessHours']);
+        }
+        if (\array_key_exists('publicHolidays', $data)) {
+            $entity->setPublicHolidays($data['publicHolidays']);
+        }
+        if (\array_key_exists('holidayDates', $data)) {
+            $entity->setHolidayDates($data['holidayDates']);
+        }
     }
 
     public function getSecurityContext(): string
     {
         return ContactAdmin::ACCOUNT_SECURITY_CONTEXT;
     }
-
 }

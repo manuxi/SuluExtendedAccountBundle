@@ -38,7 +38,7 @@ class ExtendedAccountAdminTest extends TestCase
         );
     }
 
-    public function testConfigureViewsAddsFormTab(): void
+    public function testConfigureViewsAddsTwoTabs(): void
     {
         $detailsView = $this->createMock(View::class);
         $detailsView->method('getOption')->with('tabOrder')->willReturn(1024);
@@ -62,16 +62,17 @@ class ExtendedAccountAdminTest extends TestCase
         $formViewBuilder->method('setTabOrder')->willReturn($formViewBuilder);
         $formViewBuilder->method('setParent')->willReturn($formViewBuilder);
 
-        $this->viewBuilderFactory->method('createFormViewBuilder')
-            ->with('app.extended_account_form', '/extended-account')
+        $this->viewBuilderFactory->expects($this->exactly(2))
+            ->method('createFormViewBuilder')
             ->willReturn($formViewBuilder);
 
-        $viewCollection->expects($this->once())->method('add')->with($formViewBuilder);
+        $viewCollection->expects($this->exactly(2))
+            ->method('add');
 
         $this->admin->configureViews($viewCollection);
     }
 
-    public function testConfigureViewsSkipsWhenDetailsViewMissing(): void
+    public function testConfigureViewsSkipsWhenDetailsTabMissing(): void
     {
         $viewCollection = $this->createMock(ViewCollection::class);
         $viewCollection->method('has')

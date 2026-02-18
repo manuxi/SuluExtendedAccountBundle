@@ -58,8 +58,9 @@ class ExtendedAccountControllerTest extends TestCase
         $this->assertSame('Amtsgericht München', $data['placeOfJurisdiction']);
         $this->assertSame('Tech Company', $data['descriptor']);
         $this->assertSame('Innovation first', $data['claim']);
-        $this->assertSame('09:00', $data['monAm']);
-        $this->assertSame('17:00', $data['monPm']);
+        $this->assertIsArray($data['businessHours']);
+        $this->assertIsArray($data['publicHolidays']);
+        $this->assertIsArray($data['holidayDates']);
     }
 
     public function testGetActionThrowsNotFoundWhenAccountMissing(): void
@@ -90,18 +91,9 @@ class ExtendedAccountControllerTest extends TestCase
             'placeOfJurisdiction' => 'Amtsgericht Berlin',
             'descriptor' => 'Updated',
             'claim' => 'New claim',
-            'monAm' => '08:00',
-            'monPm' => '17:00',
-            'tueAm' => '08:00',
-            'tuePm' => '17:00',
-            'wedAm' => '08:00',
-            'wedPm' => '17:00',
-            'thurAm' => '08:00',
-            'thurPm' => '17:00',
-            'friAm' => '08:00',
-            'friPm' => '16:00',
-            'satAm' => '',
-            'satPm' => '',
+            'businessHours' => ['monday' => ['enabled' => true, 'break' => false, 'slots' => []]],
+            'publicHolidays' => ['country' => 'DE', 'holidays' => []],
+            'holidayDates' => [],
         ];
 
         $request = new Request([], $requestData);
@@ -136,18 +128,13 @@ class ExtendedAccountControllerTest extends TestCase
         $account->method('getPlaceOfJurisdiction')->willReturn('Amtsgericht München');
         $account->method('getDescriptor')->willReturn('Tech Company');
         $account->method('getClaim')->willReturn('Innovation first');
-        $account->method('getMonAm')->willReturn('09:00');
-        $account->method('getMonPm')->willReturn('17:00');
-        $account->method('getTueAm')->willReturn('09:00');
-        $account->method('getTuePm')->willReturn('17:00');
-        $account->method('getWedAm')->willReturn('09:00');
-        $account->method('getWedPm')->willReturn('17:00');
-        $account->method('getThurAm')->willReturn('09:00');
-        $account->method('getThurPm')->willReturn('17:00');
-        $account->method('getFriAm')->willReturn('09:00');
-        $account->method('getFriPm')->willReturn('16:00');
-        $account->method('getSatAm')->willReturn(null);
-        $account->method('getSatPm')->willReturn(null);
+        $account->method('getBusinessHours')->willReturn([
+            'monday' => ['enabled' => true, 'break' => true, 'slots' => [['start' => '08:00', 'end' => '17:00']]],
+        ]);
+        $account->method('getPublicHolidays')->willReturn([
+            'country' => 'DE', 'holidays' => [],
+        ]);
+        $account->method('getHolidayDates')->willReturn([]);
 
         return $account;
     }

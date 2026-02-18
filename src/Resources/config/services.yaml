@@ -11,7 +11,12 @@ services:
     Manuxi\SuluExtendedAccountBundle\Admin\ExtendedAccountAdmin:
         arguments:
             - '@sulu_admin.view_builder_factory'
-            - '@sulu_security.security_checker'
         tags:
             - { name: sulu.admin }
             - { name: sulu.context, context: admin }
+
+    Manuxi\SuluExtendedAccountBundle\Twig\ExtendedAccountTwigExtension:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: twig.extension }

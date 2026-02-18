@@ -2,42 +2,37 @@
 
 ## Übersicht
 
-Das SuluExtendedAccountBundle fügt dem Sulu-Account-Bearbeitungsformular einen neuen Tab hinzu, über den zusätzliche Felder für erweiterte Account-Daten verwaltet werden können.
+Das SuluExtendedAccountBundle fügt dem Sulu-Account-Bearbeitungsformular zwei Tabs hinzu:
+
+1. **Firmendaten** — Handelsregisternummer, Registergericht, Descriptor und Slogan
+2. **Öffnungszeiten** — Geschäftszeiten, gesetzliche Feiertage und Betriebsferien
+
+Die Öffnungszeiten verwenden die Content Types aus dem **SuluAdminExtrasBundle** (`business_hours`, `public_holidays`, `holiday_dates`).
 
 ## Erweiterte Account-Felder
 
-Das Bundle fügt der Account-Entität folgende Felder hinzu:
-
-### Firmendaten
+### Tab Firmendaten
 
 | Feld | Typ | Beschreibung |
 |------|-----|--------------|
 | `registerNumber` | string (255) | Handelsregisternummer |
 | `placeOfJurisdiction` | string (255) | Registergericht |
-
-### Descriptor / Slogan
-
-| Feld | Typ | Beschreibung |
-|------|-----|--------------|
 | `descriptor` | string (255) | Firmenbeschreibung |
 | `claim` | string (255) | Firmenslogan |
 
-### Öffnungszeiten
+### Tab Öffnungszeiten
 
 | Feld | Typ | Beschreibung |
 |------|-----|--------------|
-| `monAm` / `monPm` | string (255) | Montag vormittag / nachmittag |
-| `tueAm` / `tuePm` | string (255) | Dienstag vormittag / nachmittag |
-| `wedAm` / `wedPm` | string (255) | Mittwoch vormittag / nachmittag |
-| `thurAm` / `thurPm` | string (255) | Donnerstag vormittag / nachmittag |
-| `friAm` / `friPm` | string (255) | Freitag vormittag / nachmittag |
-| `satAm` / `satPm` | string (255) | Samstag vormittag / nachmittag |
+| `businessHours` | JSON | Wochenplan mit Zeitslots und Pausen |
+| `publicHolidays` | JSON | Gesetzliche Feiertage via Nager.Date API |
+| `holidayDates` | JSON | Betriebsferien / Schließzeiten |
 
 Alle Felder sind optional (nullable).
 
 ## Admin-Integration
 
-Das Bundle registriert einen neuen Formular-Tab in der Sulu-Admin-Account-Bearbeitungsansicht. Der Tab erscheint nach dem Standard-Tab "Details" und bietet eine Speichern-Aktion in der Toolbar.
+Das Bundle registriert zwei Formular-Tabs in der Sulu-Admin-Account-Bearbeitungsansicht nach dem Standard-Tab "Details".
 
 ### API-Endpunkte
 
@@ -48,14 +43,65 @@ Das Bundle registriert einen neuen Formular-Tab in der Sulu-Admin-Account-Bearbe
 
 Beide Endpunkte sind mit dem Standard-Sulu-Account-Sicherheitskontext abgesichert.
 
+## Twig-Funktionen
+
+Das Bundle stellt vier Twig-Funktionen für die Frontend-Ausgabe bereit:
+
+### `is_open_now(accountId)`
+
+Gibt `true` zurück, wenn der Account aktuell geöffnet ist (unter Berücksichtigung von Geschäftszeiten, Feiertagen und Betriebsferien).
+
+```twig
+{% if is_open_now(account.id) %}
+    <span class="badge badge-success">Jetzt geöffnet</span>
+{% else %}
+    <span class="badge badge-danger">Geschlossen</span>
+{% endif %}
+```
+
+### `get_business_hours(accountId)`
+
+Gibt den vollständigen Wochenplan als Array zurück.
+
+```twig
+{% set hours = get_business_hours(account.id) %}
+{% for day, config in hours %}
+    {% if config.enabled %}
+        <strong>{{ day }}:</strong>
+        {% for slot in config.slots %}
+            {{ slot.start }} – {{ slot.end }}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+```
+
+### `get_today_hours(accountId)`
+
+Gibt die Öffnungszeiten für heute zurück (oder `null` wenn nicht konfiguriert).
+
+```twig
+{% set today = get_today_hours(account.id) %}
+{% if today and today.enabled %}
+    Heute: {% for slot in today.slots %}{{ slot.start }}–{{ slot.end }} {% endfor %}
+{% else %}
+    Heute geschlossen
+{% endif %}
+```
+
+### `is_holiday(accountId)`
+
+Gibt `true` zurück, wenn heute ein gesetzlicher Feiertag ist oder in einen Betriebsferien-Zeitraum fällt.
+
+```twig
+{% if is_holiday(account.id) %}
+    <p>Wir haben heute aufgrund eines Feiertags geschlossen.</p>
+{% endif %}
+```
+
 ## Entität
 
-Das Bundle stellt eine eigene `Account`-Entität (`Manuxi\SuluExtendedAccountBundle\Entity\Account`) bereit, die `Sulu\Bundle\ContactBundle\Entity\Account` erweitert. Sie ist auf die bestehende Tabelle `co_accounts` gemappt und fügt die oben aufgelisteten Spalten hinzu.
+Das Bundle stellt eine eigene `Account`-Entität (`Manuxi\SuluExtendedAccountBundle\Entity\Account`) bereit, die `Sulu\Bundle\ContactBundle\Entity\Account` erweitert. Sie ist auf die bestehende Tabelle `co_accounts` gemappt.
 
-## Tests
+## Abhängigkeiten
 
-Das Bundle enthält eine vollständige Unit-Test-Suite mit PHPUnit 11. Tests ausführen:
-
-```console
-vendor/bin/phpunit
-```
+Dieses Bundle benötigt das **SuluAdminExtrasBundle** (`manuxi/sulu-admin-extras-bundle`) für die Content Types `business_hours`, `public_holidays` und `holiday_dates`.

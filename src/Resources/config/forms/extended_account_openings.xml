@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>extended_account_openings</key>
+
+    <properties>
+        <section name="businessHoursBlock">
+            <meta>
+                <title>extended_account.sections.business_hours</title>
+            </meta>
+            <properties>
+                <property name="businessHours" type="business_hours" colspan="12">
+                    <meta>
+                        <title>extended_account.business_hours</title>
+                    </meta>
+                    <params>
+                        <param name="default_break" value="true"/>
+                        <param name="apply_to_all_button" value="true"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <section name="publicHolidaysBlock">
+            <meta>
+                <title>extended_account.sections.public_holidays</title>
+            </meta>
+            <properties>
+                <property name="publicHolidays" type="public_holidays" colspan="12">
+                    <meta>
+                        <title>extended_account.public_holidays</title>
+                    </meta>
+                    <params>
+                        <param name="default_country" value="DE"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <section name="holidayDatesBlock">
+            <meta>
+                <title>extended_account.sections.holiday_dates</title>
+            </meta>
+            <properties>
+                <property name="holidayDates" type="holiday_dates" colspan="12">
+                    <meta>
+                        <title>extended_account.holiday_dates</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</form>

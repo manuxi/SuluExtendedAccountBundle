@@ -1,29 +1,16 @@
 extended_account:
-    additional_data: "Weiteres"
+    additional_data: "Firmendaten"
+    openings_tab: "Öffnungszeiten"
     register_number: "Handelsregisternummer"
     place_of_jurisdiction: "Registergericht"
     descriptor: "Descriptor"
     claim: "Slogan"
-    openings:
-        mon:
-            am: "Montag vormittag"
-            pm: "Montag nachmittag"
-        tue:
-            am: "Dienstag vormittag"
-            pm: "Dienstag nachmittag"
-        wed:
-            am: "Mittwoch vormittag"
-            pm: "Mittwoch nachmittag"
-        thur:
-            am: "Donnerstag vormittag"
-            pm: "Donnerstag nachmittag"
-        fri:
-            am: "Freitag vormittag"
-            pm: "Freitag nachmittag"
-        sat:
-            am: "Samstag vormittag"
-            pm: "Samstag nachmittag"
+    business_hours: "Geschäftszeiten"
+    public_holidays: "Gesetzliche Feiertage"
+    holiday_dates: "Betriebsferien"
     sections:
         company_data: "Firmendaten"
         company_info: "Descriptor / Slogan"
-        openings: "Öffnungszeiten"
+        business_hours: "Geschäftszeiten"
+        public_holidays: "Feiertage"
+        holiday_dates: "Betriebsferien"

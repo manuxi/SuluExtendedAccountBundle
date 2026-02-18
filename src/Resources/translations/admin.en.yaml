@@ -1,29 +1,16 @@
 extended_account:
-    additional_data: "Additional Data"
+    additional_data: "Company Data"
+    openings_tab: "Opening Hours"
     register_number: "Commercial register number"
     place_of_jurisdiction: "Registry Court"
     descriptor: "Descriptor"
     claim: "Claim"
-    openings:
-        mon:
-            am: "Monday A.M."
-            pm: "Monday P.M."
-        tue:
-            am: "Tuesday A.M."
-            pm: "Tuesday P.M."
-        wed:
-            am: "Wednesday A.M."
-            pm: "Wednesday P.M."
-        thur:
-            am: "Thursday A.M."
-            pm: "Thursday P.M."
-        fri:
-            am: "Friday A.M."
-            pm: "Friday P.M."
-        sat:
-            am: "Saturday A.M."
-            pm: "Saturday P.M."
+    business_hours: "Business Hours"
+    public_holidays: "Public Holidays"
+    holiday_dates: "Company Holidays"
     sections:
         company_data: "Company Data"
         company_info: "Descriptor / Claim"
-        openings: "Openings"
+        business_hours: "Business Hours"
+        public_holidays: "Public Holidays"
+        holiday_dates: "Company Holidays"

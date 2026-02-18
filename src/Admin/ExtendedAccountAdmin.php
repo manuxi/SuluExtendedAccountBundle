@@ -22,20 +22,34 @@ class ExtendedAccountAdmin extends Admin
 
     public function configureViews(ViewCollection $viewCollection): void
     {
-        if ($viewCollection->has('sulu_contact.account_edit_form.details')) {
-            $accountDetailsFormView = $viewCollection->get('sulu_contact.account_edit_form.details')->getView();
-
-            $viewCollection->add(
-                $this->viewBuilderFactory
-                    ->createFormViewBuilder('app.extended_account_form', '/extended-account')
-                    ->setResourceKey('extended_account')
-                    ->setFormKey('extended_account')
-                    ->setTabTitle('extended_account.additional_data')
-                    ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
-                    ->setTabOrder($accountDetailsFormView->getOption('tabOrder') + 1)
-                    ->setParent(ContactAdmin::ACCOUNT_EDIT_FORM_VIEW)
-            );
+        if (!$viewCollection->has('sulu_contact.account_edit_form.details')) {
+            return;
         }
+
+        $accountDetailsFormView = $viewCollection->get('sulu_contact.account_edit_form.details')->getView();
+        $tabOrder = $accountDetailsFormView->getOption('tabOrder') + 1;
+
+        $viewCollection->add(
+            $this->viewBuilderFactory
+                ->createFormViewBuilder('app.extended_account_form', '/extended-account')
+                ->setResourceKey('extended_account')
+                ->setFormKey('extended_account')
+                ->setTabTitle('extended_account.additional_data')
+                ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
+                ->setTabOrder($tabOrder)
+                ->setParent(ContactAdmin::ACCOUNT_EDIT_FORM_VIEW)
+        );
+
+        $viewCollection->add(
+            $this->viewBuilderFactory
+                ->createFormViewBuilder('app.extended_account_openings_form', '/extended-account-openings')
+                ->setResourceKey('extended_account')
+                ->setFormKey('extended_account_openings')
+                ->setTabTitle('extended_account.openings_tab')
+                ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
+                ->setTabOrder($tabOrder + 1)
+                ->setParent(ContactAdmin::ACCOUNT_EDIT_FORM_VIEW)
+        );
     }
 
     public static function getPriority(): int
