@@ -1,6 +1,5 @@
 {
     "name": "manuxi/sulu-extended-account-bundle",
-    "version": "3.0.0",
     "description": "A Sulu bundle to extend the account entity with additional properties.",
     "type": "symfony-bundle",
     "keywords": [
@@ -59,3 +58,4 @@
         }
     }
 }
+
