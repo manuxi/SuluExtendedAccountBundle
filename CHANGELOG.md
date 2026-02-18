@@ -23,6 +23,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed form configuration file from `additional_account_data.xml` to `extended_account.xml`
 
 ### Added
+- Unit tests for all classes (Entity, Admin, Controller, DI Extension, Configuration, Bundle)
+- PHPUnit 11 configuration (`phpunit.xml.dist`)
 - Documentation in `docs/` (English and German)
 - German README (`README.de.md`)
 - This changelog file
+
+### Fixed
+- Initialized all nullable entity properties with `= null` default to prevent `TypeError` on access before initialization
+
+### Removed
+- Removed `phpspec/prophecy` dependency (incompatible with PHPUnit 11)
+
+### Upgraded
+- Upgraded `phpunit/phpunit` from `^8.0` to `^11.0`
+- Dropped Sulu 2.x support, now requires `sulu/sulu: ^3.0`

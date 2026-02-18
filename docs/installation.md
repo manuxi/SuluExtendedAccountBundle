@@ -3,7 +3,7 @@
 ## Requirements
 
 - PHP 8.2 or higher
-- Sulu 2.5 / 3.0 or higher
+- Sulu 3.0 or higher
 - Symfony 6.2 / 7.0 or higher
 
 ## Step 1: Install the package

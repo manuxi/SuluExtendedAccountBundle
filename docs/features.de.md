@@ -51,3 +51,11 @@ Beide Endpunkte sind mit dem Standard-Sulu-Account-Sicherheitskontext abgesicher
 ## Entität
 
 Das Bundle stellt eine eigene `Account`-Entität (`Manuxi\SuluExtendedAccountBundle\Entity\Account`) bereit, die `Sulu\Bundle\ContactBundle\Entity\Account` erweitert. Sie ist auf die bestehende Tabelle `co_accounts` gemappt und fügt die oben aufgelisteten Spalten hinzu.
+
+## Tests
+
+Das Bundle enthält eine vollständige Unit-Test-Suite mit PHPUnit 11. Tests ausführen:
+
+```console
+vendor/bin/phpunit
+```
