@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>extended_account</key>
+
+    <properties>
+        <section name="companyDataBlock">
+            <meta>
+                <title>extended_account.sections.company_data</title>
+            </meta>
+            <properties>
+                <property name="registerNumber" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.register_number</title>
+                    </meta>
+                </property>
+
+                <property name="placeOfJurisdiction" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.place_of_jurisdiction</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+        <section name="companyInfoBlock">
+            <meta>
+                <title>extended_account.sections.company_info</title>
+            </meta>
+            <properties>
+                <property name="descriptor" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.descriptor</title>
+                    </meta>
+                </property>
+
+                <property name="claim" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.claim</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+        <section name="openingsBlock">
+            <meta>
+                <title>extended_account.sections.openings</title>
+            </meta>
+            <properties>
+                <property name="monAm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.mon.am</title>
+                    </meta>
+                </property>
+                <property name="monPm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.mon.pm</title>
+                    </meta>
+                </property>
+
+                <property name="tueAm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.tue.am</title>
+                    </meta>
+                </property>
+                <property name="tuePm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.tue.pm</title>
+                    </meta>
+                </property>
+
+                <property name="wedAm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.wed.am</title>
+                    </meta>
+                </property>
+                <property name="wedPm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.wed.pm</title>
+                    </meta>
+                </property>
+
+                <property name="thurAm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.thur.am</title>
+                    </meta>
+                </property>
+                <property name="thurPm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.thur.pm</title>
+                    </meta>
+                </property>
+
+                <property name="friAm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.fri.am</title>
+                    </meta>
+                </property>
+                <property name="friPm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.fri.pm</title>
+                    </meta>
+                </property>
+
+                <property name="satAm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.sat.am</title>
+                    </meta>
+                </property>
+                <property name="satPm" type="text_line" colspan="6">
+                    <meta>
+                        <title>extended_account.openings.sat.pm</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</form>

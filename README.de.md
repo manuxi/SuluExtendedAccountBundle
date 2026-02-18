@@ -1,0 +1,53 @@
+# SuluExtendedAccountBundle
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/manuxi/SuluExtendedAccountBundle/LICENSE)
+![GitHub Tag](https://img.shields.io/github/v/tag/manuxi/SuluExtendedAccountBundle)
+![Supports Sulu 2.6 or later](https://img.shields.io/badge/%20Sulu->=3.0-0088cc?color=00b2df)
+
+Ein Sulu-Bundle zur Erweiterung der Account-Entität um zusätzliche Eigenschaften wie Firmendaten, Descriptor/Slogan und Öffnungszeiten.
+
+## Dokumentation
+
+- [Installation](docs/installation.de.md)
+- [Funktionen](docs/features.de.md)
+
+## Schnellstart
+
+```console
+composer require manuxi/sulu-extended-account-bundle
+```
+
+Falls Symfony Flex **nicht** verwendet wird, muss das Bundle in der `config/bundles.php` registriert werden:
+
+```php
+return [
+    //...
+    Manuxi\SuluExtendedAccountBundle\SuluExtendedAccountBundle::class => ['all' => true],
+];
+```
+
+Admin-Routen in der `config/routes/routes_admin.yaml` eintragen:
+
+```yaml
+SuluExtendedAccountBundle:
+    resource: '@SuluExtendedAccountBundle/Resources/config/routes_admin.yaml'
+```
+
+Datenbankschema aktualisieren:
+
+```console
+php bin/console doctrine:schema:update --force
+```
+
+Detaillierte Anweisungen finden sich in der [Installationsanleitung](docs/installation.de.md).
+
+## Konfiguration
+
+Aktuell ist keine Konfiguration erforderlich.
+
+## Mitwirken
+
+Issues und Pull Requests sind willkommen. Feedback zur Verbesserung des Bundles ist jederzeit erwünscht.
+
+## Lizenz
+
+Dieses Bundle wird unter der [MIT-Lizenz](LICENSE) veröffentlicht.

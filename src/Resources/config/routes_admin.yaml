@@ -1,0 +1,6 @@
+sulu_extended_account_api:
+    resource: Manuxi\SuluExtendedAccountBundle\Controller\Admin\ExtendedAccountController
+    type: attribute
+    prefix: /admin/api
+    options:
+        expose: true
