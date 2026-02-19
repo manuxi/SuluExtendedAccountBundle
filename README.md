@@ -6,6 +6,10 @@
 
 A Sulu bundle to extend the account entity with company data, business hours, public holidays and company holidays.
 
+![Company data](docs/img/additional_data.de.png)
+
+![OPenings](docs/img/openings.de.png)
+
 **English** | [🇩🇪 Deutsch](README.de.md)
 
 ## Documentation

@@ -6,6 +6,10 @@
 
 Ein Sulu-Bundle zur Erweiterung der Account-Entität um Firmendaten, Geschäftszeiten, gesetzliche Feiertage und Betriebsferien.
 
+![Firmendaten](docs/img/additional_data.de.png)
+
+![Öffnungszeiten](docs/img/openings.de.png)
+
 [🇬🇧 English](README.md) | **Deutsch**
 
 ## Dokumentation
