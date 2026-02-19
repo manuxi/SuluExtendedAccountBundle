@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-02-19
 
 ### Changed
 - Replaced 12 individual opening hours string fields (`monAm`, `monPm`, ...) with 3 JSON fields (`businessHours`, `publicHolidays`, `holidayDates`)
@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 12 individual string columns for opening hours (`monAm`, `monPm`, `tueAm`, `tuePm`, `wedAm`, `wedPm`, `thurAm`, `thurPm`, `friAm`, `friPm`, `satAm`, `satPm`)
 - All `openings.*` translation keys (replaced by AdminExtrasBundle translations)
 
-## [3.0.0] - 2026-02-18
+## 2026-02-18
 
 ### Changed
 - Renamed bundle from `SuluAdditionalAccountDataBundle` to `SuluExtendedAccountBundle`
