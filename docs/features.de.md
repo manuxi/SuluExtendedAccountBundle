@@ -4,10 +4,10 @@
 
 Das SuluExtendedAccountBundle fügt dem Sulu-Account-Bearbeitungsformular zwei Tabs hinzu:
 
-1. **Firmendaten** — Handelsregisternummer, Registergericht, Descriptor und Slogan
+1. **Firmendaten** — Handelsregisternummer, Registergericht, Firmenbeschreibung und Slogan
 2. **Öffnungszeiten** — Geschäftszeiten, gesetzliche Feiertage und Betriebsferien
 
-Die Öffnungszeiten verwenden die Content Types aus dem **SuluAdminExtrasBundle** (`business_hours`, `public_holidays`, `holiday_dates`).
+Die Öffnungszeiten verwenden die Content Types aus dem [SuluAdminExtrasBundle](https://github.com/manuxi/SuluAdminExtrasBundle) (`business_hours`, `public_holidays`, `holiday_dates`).
 
 ## Erweiterte Account-Felder
 
@@ -104,4 +104,6 @@ Das Bundle stellt eine eigene `Account`-Entität (`Manuxi\SuluExtendedAccountBun
 
 ## Abhängigkeiten
 
-Dieses Bundle benötigt das **SuluAdminExtrasBundle** (`manuxi/sulu-admin-extras-bundle`) für die Content Types `business_hours`, `public_holidays` und `holiday_dates`.
+Dieses Bundle benötigt das [SuluAdminExtrasBundle](https://github.com/manuxi/SuluAdminExtrasBundle) (`manuxi/sulu-admin-extras-bundle`) für die Content Types `business_hours`, `public_holidays` und `holiday_dates`.
+
+> Die JavaScript-Komponenten des AdminExtrasBundle müssen in den Admin-Assets registriert sein. Siehe die [Installationsanleitung](installation.de.md) für Details.
