@@ -7,7 +7,7 @@ The SuluExtendedAccountBundle adds two tabs to the Sulu account edit form:
 1. **Company Data** — Register number, jurisdiction, descriptor and claim
 2. **Opening Hours** — Business hours, public holidays and company holidays
 
-The opening hours use the content types from the **SuluAdminExtrasBundle** (`business_hours`, `public_holidays`, `holiday_dates`).
+The opening hours use the content types from the [SuluAdminExtrasBundle](https://github.com/manuxi/SuluAdminExtrasBundle) (`business_hours`, `public_holidays`, `holiday_dates`).
 
 ## Extended Account Fields
 
@@ -104,4 +104,6 @@ The bundle provides a custom `Account` entity (`Manuxi\SuluExtendedAccountBundle
 
 ## Dependencies
 
-This bundle requires the **SuluAdminExtrasBundle** (`manuxi/sulu-admin-extras-bundle`) for the `business_hours`, `public_holidays` and `holiday_dates` content types.
+This bundle requires the [SuluAdminExtrasBundle](https://github.com/manuxi/SuluAdminExtrasBundle) (`manuxi/sulu-admin-extras-bundle`) for the `business_hours`, `public_holidays` and `holiday_dates` content types.
+
+> Make sure the AdminExtrasBundle's JavaScript components are registered in your admin assets. See the [Installation Guide](installation.md) for details.
