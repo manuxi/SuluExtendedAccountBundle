@@ -6,22 +6,28 @@
 ![GitHub Tag](https://img.shields.io/github/v/tag/manuxi/SuluExtendedAccountBundle)
 ![Supports Sulu 3.0 or later](https://img.shields.io/badge/Sulu->=3.0-0088cc?color=00b2df)
 
-Ein Sulu-Bundle zur Erweiterung der Account-Entität um Firmendaten, Geschäftszeiten, gesetzliche Feiertage und Betriebsferien.
+[🇬🇧 English](README.md) | **Deutsch**
+
+Ein Sulu-Bundle zur Erweiterung der Account-Entity um Firmendaten, Geschäftszeiten, gesetzliche Feiertage und Betriebsferien.
+
+> **Hinweis:** Dieses Bundle ersetzt das ehemalige `manuxi/sulu-additional-account-data-bundle` (`SuluAdditionalAccountDataBundle`).
 
 ![Firmendaten](docs/img/additional_data.de.png)
 
 ![Öffnungszeiten](docs/img/openings.de.png)
 
-[🇬🇧 English](README.md) | **Deutsch**
+## 📋 Voraussetzungen
 
-## Dokumentation
+- PHP 8.2 oder höher
+- Sulu CMS 3.0 oder höher
+- Symfony 6.2 / 7.0 oder höher
+- [SuluAdminExtrasBundle](https://github.com/manuxi/SuluAdminExtrasBundle) (wird automatisch als Abhängigkeit installiert)
 
-- [Installation](docs/installation.de.md)
-- [Features](docs/features.de.md)
+## 👩🏻‍🏭 Installation
 
-## Schnellstart
+### Schritt 1: Paket installieren
 
-```console
+```bash
 composer require manuxi/sulu-extended-account-bundle
 ```
 
@@ -34,27 +40,72 @@ return [
 ];
 ```
 
-Admin-Routen in der `config/routes/routes_admin.yaml` eintragen:
+### Schritt 2: Routing konfigurieren
+
+Folgendes in die `config/routes/routes_admin.yaml` eintragen:
 
 ```yaml
 SuluExtendedAccountBundle:
     resource: '@SuluExtendedAccountBundle/Resources/config/routes_admin.yaml'
 ```
 
-Datenbankschema aktualisieren:
+### Schritt 3: Datenbankschema aktualisieren
 
-```console
+```bash
+# Vorschau der benötigten SQL-Änderungen
+php bin/console doctrine:schema:update --dump-sql
+
+# Änderungen anwenden
 php bin/console doctrine:schema:update --force
+```
+
+> **Wichtig:** Es sollten nur die Schema-Änderungen dieses Bundles verarbeitet werden.
+
+### Schritt 4: Admin-Assets einrichten
+
+Die Öffnungszeiten-Features (Geschäftszeiten, Feiertage, Betriebsferien) verwenden Content Types aus dem **SuluAdminExtrasBundle**. Die JavaScript-Komponenten müssen in den Admin-Assets registriert werden.
+
+**A) `assets/admin/package.json` aktualisieren**
+
+Die Abhängigkeit für das AdminExtrasBundle hinzufügen:
+
+```json
+{
+    "dependencies": {
+        "sulu-admin-extras-bundle": "file:../../vendor/manuxi/sulu-admin-extras-bundle/src/Resources"
+    }
+}
+```
+
+**B) `assets/admin/app.js` aktualisieren**
+
+Das Bundle importieren:
+
+```javascript
+import 'sulu-admin-extras-bundle';
+```
+
+**C) Installieren & Bauen**
+
+```bash
+cd assets/admin
+npm install
+npm run build
 ```
 
 Detaillierte Anweisungen finden sich in der [Installationsanleitung](docs/installation.de.md).
 
-## Abhängigkeiten
+## ✨ Features
 
-Dieses Bundle benötigt das [SuluAdminExtrasBundle](https://github.com/manuxi/SuluAdminExtrasBundle) für die Content Types `business_hours`, `public_holidays` und `holiday_dates`.
+### Firmendaten
+- Handelsregisternummer, Registergericht, Firmenbeschreibung und Slogan
 
-## Twig-Funktionen
+### Öffnungszeiten
+- Wöchentlicher Geschäftszeiten-Plan mit Zeitslots und Pausen
+- Gesetzliche Feiertage via Nager.Date API
+- Betriebsferien / Schließzeiten
 
+### Twig-Funktionen
 Das Bundle stellt Twig-Funktionen für die Frontend-Ausgabe bereit:
 
 | Funktion | Rückgabe | Beschreibung |
@@ -66,14 +117,27 @@ Das Bundle stellt Twig-Funktionen für die Frontend-Ausgabe bereit:
 
 Siehe [Funktionen](docs/features.de.md) für Anwendungsbeispiele.
 
-## Konfiguration
+## 📖 Dokumentation
 
-Aktuell ist keine Konfiguration erforderlich.
+Detaillierte Dokumentation im [docs/](docs/) Verzeichnis:
 
-## Mitwirken
+- [Installation](docs/installation.de.md) - Vollständige Installationsanleitung
+- [Funktionen](docs/features.de.md) - Feature-Übersicht und Twig-Beispiele
 
-Issues und Pull Requests sind willkommen. Feedback zur Verbesserung des Bundles ist jederzeit erwünscht.
+## 🧶 Konfiguration
 
-## Lizenz
+Aktuell ist keine zusätzliche Konfiguration erforderlich.
+
+## 👩‍🍳 Mitwirken
+
+Issues und Pull Requests sind willkommen! Feedback zur Verbesserung des Bundles ist jederzeit erwünscht.
+
+## 📝 Lizenz
 
 Dieses Bundle wird unter der [MIT-Lizenz](LICENSE) veröffentlicht.
+
+## 🎉 Credits
+
+Erstellt und gewartet von [manuxi](https://github.com/manuxi).
+
+Danke an das Sulu-Team für das tolle CMS und den fantastischen Support!
